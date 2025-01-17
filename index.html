@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="text/javascript" src="https://cdn.bitmovin.com/player/web/8/bitmovinplayer.js"></script>
+    <!--<script type="text/javascript" src="https://cdn.bitmovin.com/player/web/8/bitmovinplayer-ui.js"></script>-->
+    <script type="text/javascript" src="https://cdn.bitmovin.com/analytics/web/beta/2/bitmovinanalytics.min.js"></script>
+    <script src="./js/script.js" defer></script>
+    <title>Frame Accurate Seek Test</title>
+</head>
+<body>
+<div class="bg-white">
+    <div class="bg-white">
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+            <div class="bg-gray-900 shadow sm:rounded-lg my-10 px-20">
+                <div class="px-4 py-5 sm:p-6">
+                    <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                        <div class="sm:col-span-3">
+                            <label for="video_url" class="block text-sm font-medium leading-6 text-white">Video Url</label>
+                            <div class="mt-2">
+                                <input value="" type="text"
+                                       name="video_url" id="video_url" autocomplete="given-name"
+                                       class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6 px-2">
+                            </div>
+                        </div>
+
+                        <div class="sm:col-span-2">
+                            <label for="frame_image" class="block text-sm font-medium leading-6 text-white">Frame Image Url Path</label>
+                            <div class="mt-2">
+                                <input value="" type="text" name="frame_image"
+                                       id="frame_image" autocomplete="family-name" class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6 px-2">
+                            </div>
+                        </div>
+                        <div class="sm:col-span-1">
+                            <label for="fps" class="block text-sm font-medium leading-6 text-white">FPS</label>
+                            <div class="mt-2">
+                                <input value="25" type="number" name="fps" id="fps" autocomplete="family-name"
+                                       class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6 px-2">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-5 text-right">
+                        <button type="button" id="submit_frame" class="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Submit</button>
+                    </div>
+                </div>
+            </div>
+            <div class="mx-auto max-w-2xl lg:mx-0 lg:max-w-none">
+                <div class="mt-6 flex flex-col gap-x-8 gap-y-5 lg:flex-row">
+                    <div class="lg:w-full lg:max-w-2xl lg:flex-auto">
+                        <div id="player-container"></div>
+                    </div>
+                    <div class="lg:flex lg:flex-auto lg:justify-center">
+                        <dl class="w-64 space-y-4 xl:w-80">
+                            <div class="flex flex-col-reverse gap-y-2">
+                                <dt class="text-lg leading-7 text-gray-600" id="playerTime"></dt>
+                                <dd class="text-xl font-semibold tracking-tight text-gray-900">Current SMPTE</dd>
+                            </div>
+                            <div class="flex flex-col-reverse gap-y-2">
+                                <dt class="text-lg leading-7 text-gray-600" id="currentFrame"></dt>
+                                <dd class="text-xl font-semibold tracking-tight text-gray-900">Frame Number</dd>
+                            </div>
+
+                            <div class="flex flex-col-reverse gap-y-4">
+
+                                <div class="bg-gray-900 sm:rounded-lg p-2">
+                                    <div class="px-2 py-5 sm:p-2">
+                                        <div class="sm:flex sm:items-center">
+                                            <button id="step_back_button" type="submit" class="mt-3 inline-flex w-full items-center justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:mr-3 sm:mt-0 sm:w-auto">Back</button>
+                                            <div class="w-full sm:max-w-xs">
+                                                <label for="step_size_input" class="sr-only">Frame Adjustment</label>
+                                                <input type="number" name="frameno" id="step_size_input" value="1" min="1" max="1096" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 px-2" placeholder="Adjust Frame">
+                                            </div>
+                                            <button id="step_forward_button" type="submit" class="mt-3 inline-flex w-full items-center justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:ml-3 sm:mt-0 sm:w-auto">Forward</button>
+                                        </div>
+                                    </div>
+                                    <div class="px-2 py-5 sm:p-2">
+                                        <div class="sm:flex sm:items-center">
+                                            <button id="seek_button" type="submit" class="mt-3 inline-flex w-full items-center justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:mr-3 sm:mt-0 sm:w-auto">Seek</button>
+                                            <div class="inline-flex w-4/5 items-center justify-center px-1 py-2 text-gray-400"> to SMPTE :</div>
+                                            <div class="w-full sm:max-w-xs">
+                                                <label for="smtpe_input" class="sr-only">SMTPE Input</label>
+                                                <input type="text" name="smtpe_input" id="smtpe_input" value="00:00:30:00"  class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 px-2" placeholder="Adjust Frame">
+                                            </div>
+                                            <div class="smpte-error"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-white ">
+        <div class="mx-auto px-6 lg:px-8">
+            <ul role="list" class="mx-auto mt-20 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-4">
+                <li>
+                    <img width="400" id="baseframe" class="aspect-[3/2] w-full rounded object-fill"   alt="Base Frame">
+                    <h3 class="mt-2 text-lg font-semibold leading-8 tracking-tight text-gray-900">Base Frame</h3>
+                </li>
+                <li>
+                    <img id="frame1" class="aspect-[3/2] w-full rounded object-fill"  alt="Frame 1">
+                    <h3 class="mt-2 text-lg font-semibold leading-8 tracking-tight text-gray-900">Frame 1</h3>
+                </li>
+                <li>
+                    <img id="frame2" class="aspect-[3/2] w-full rounded object-fill"  alt="Frame 2">
+                    <h3 class="mt-2 text-lg font-semibold leading-8 tracking-tight text-gray-900">Frame 2</h3>
+                </li>
+                <li>
+                    <img id="frame3" class="aspect-[3/2] w-full rounded oobject-fill"  alt="Frame 3">
+                    <h3 class="mt-2 text-lg font-semibold leading-8 tracking-tight text-gray-900">Frame 3</h3>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+    <div class="mx-auto max-w-7xl py-5">
+
+        <div class="relative overflow-x-auto">
+            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-800 dark:text-gray-400">
+                <tr>
+                    <th scope="col" class="px-6 py-3">
+                        Keyboard controls
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Description
+                    </th>
+                </tr>
+                <tr>
+                    <th colspan="2"  class="px-6 py-1">
+                        Only active when the player has focus
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-500 whitespace-nowrap dark:text-gray-400">
+                        <kbd class="px-2 py-1.5 text-xs font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500">Shift</kbd>
+                        <span class="mx-2">or</span>
+                        <kbd class="px-2 py-1.5 text-xs font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500">Tab</kbd>
+                    </th>
+                    <td class="px-6 py-4">
+                        Navigate to interactive elements
+                    </td>
+                </tr>
+                <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-500 whitespace-nowrap dark:text-gray-400">
+                        <kbd class="px-4 py-1.5 text-xs font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500">Spacebar</kbd>
+                    </th>
+                    <td class="px-6 py-4">
+                        Play / Pause
+                    </td>
+                </tr>
+                <tr class="bg-white dark:bg-gray-900">
+                    <th scope="row" class="inline-flex items-center px-6 py-4 font-medium text-gray-500 dark:text-gray-400 whitespace-nowrap">
+
+                        <span class="mx-2">Left</span>
+                        <kbd class="rtl:rotate-180 inline-flex items-center me-1  px-2 py-1.5 text-gray-800 bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500">
+                            <svg class="w-2.5 h-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 10 16">
+                                <path d="M8.766.566A2 2 0 0 0 6.586 1L1 6.586a2 2 0 0 0 0 2.828L6.586 15A2 2 0 0 0 10 13.586V2.414A2 2 0 0 0 8.766.566Z"/>
+                            </svg>
+                            <span class="sr-only">Arrow key left</span>
+                        </kbd>
+
+                    </th>
+                    <td class="px-6 py-4">
+                        Choose and activate previous/next tab.
+                    </td>
+                </tr>
+                <tr class="bg-white dark:bg-gray-900">
+                    <th scope="row" class="inline-flex items-center px-6 py-4 font-medium text-gray-500 dark:text-gray-400 whitespace-nowrap">
+
+                        <span class="mx-2">Right</span>
+
+                        <kbd class="rtl:rotate-180 inline-flex items-center px-2 py-1.5 text-gray-800 bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500">
+                            <svg class="w-2.5 h-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 10 16">
+                                <path d="M3.414 1A2 2 0 0 0 0 2.414v11.172A2 2 0 0 0 3.414 15L9 9.414a2 2 0 0 0 0-2.828L3.414 1Z"/>
+                            </svg>
+                            <span class="sr-only">Arrow key right</span>
+                        </kbd>
+                    </th>
+                    <td class="px-6 py-4">
+                        Choose and activate previous/next tab.
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+</body>
+</html>

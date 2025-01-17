@@ -1,0 +1,416 @@
+@import url('//cdn.bitmovin.com/player/web/8/bitmovinplayer-ui.css');
+
+/* Root */
+.bmpui-ui-uicontainer::before {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  content: '';
+  height: 166px;
+  position: absolute;
+  transition: opacity 0.3s ease-in-out;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 1) 70%,
+    rgba(0, 0, 0, 1) 100%
+  );
+}
+
+#player-container video {
+  object-position: top center;
+}
+
+.bmpui-ui-uicontainer.bmpui-controls-shown {
+  position: relative;
+}
+
+.bmpui-ui-uicontainer.bmpui-controls-shown::before {
+  opacity: 1;
+}
+
+/* seekbar */
+
+.bmpui-ui-controlbar .bmpui-controlbar-top {
+  /* width: var(--container);
+    padding: 0 var(--container-gap); */
+  margin: 0 auto;
+}
+
+.bmpui-ui-controlbar .bmpui-controlbar-top > .bmpui-container-wrapper > * {
+  margin: 0;
+}
+
+.bmpui-ui-seekbar .bmpui-seekbar .bmpui-seekbar-backdrop,
+.bmpui-ui-seekbar .bmpui-seekbar .bmpui-seekbar-bufferlevel,
+.bmpui-ui-seekbar .bmpui-seekbar .bmpui-seekbar-markers,
+.bmpui-ui-seekbar .bmpui-seekbar .bmpui-seekbar-markers > .bmpui-seekbar-marker,
+.bmpui-ui-seekbar .bmpui-seekbar .bmpui-seekbar-playbackposition,
+.bmpui-ui-seekbar .bmpui-seekbar .bmpui-seekbar-playbackposition-marker,
+.bmpui-ui-seekbar .bmpui-seekbar .bmpui-seekbar-seekposition {
+  height: 3px;
+}
+
+.bmpui-ui-seekbar .bmpui-seekbar .bmpui-seekbar-playbackposition {
+  background-color: #ffff00;
+}
+
+.bmpui-ui-seekbar .bmpui-seekbar .bmpui-seekbar-playbackposition-marker {
+  border: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #ff0;
+  box-shadow: 0 0 0 5px rgba(255, 255, 0, 50%);
+}
+
+.bmpui-ui-seekbar .bmpui-seekbar .bmpui-seekbar-bufferlevel {
+  background-color: lightgray;
+}
+
+.bmpui-ui-seekbar-label {
+  display: none;
+}
+
+/* Play button */
+
+.bmpui-player-state-finished
+  #pause-playtoggle
+  #pause-playbacktoggle-button.bmpui-off {
+  background-image: url('/icons/replay-video-button.svg');
+}
+
+#pause-playbacktoggle-button.bmpui-off {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  position: absolute;
+  padding: 0;
+  margin: 0;
+  top: 0;
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="95.312" height="116.407" viewBox="0 0 95.312 116.407"><path id="Path_2679" data-name="Path 2679" d="M47.907,106.8V6.1a4.27,4.27,0,0,1,6.547-3.612l79.774,50.35a4.269,4.269,0,0,1,0,7.22L97.186,83.438,54.454,110.406a4.267,4.267,0,0,1-6.547-3.608Z" transform="translate(-44.407 1.753)" fill="none" stroke="%23ff0" stroke-miterlimit="10" stroke-width="7"/></svg>');
+  background-size: 100px;
+  z-index: 5;
+}
+
+.bmpui-player-state-finished
+  #pause-playtoggle
+  #pause-playbacktoggle-button.bmpui-off.bmpui-hidden {
+  background-image: url('/icons/replay-video-button.svg');
+}
+
+#pause-playbacktoggle-button.bmpui-on {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  position: absolute;
+  padding: 0;
+  margin: 0;
+  top: 0;
+  background-image: url('/icons/pause-video-icon.svg');
+  background-size: 100px;
+  z-index: 5;
+}
+
+.bmpui-ui-hugeplaybacktogglebutton.bmpui-off {
+  animation: none !important;
+  -webkit-animation: none !important;
+}
+
+.bmpui-ui-playbacktoggle-overlay.bmpui-hidden {
+  opacity: 0;
+  -webkit-transition: opacity 0.3s;
+  transition: opacity 0.3s;
+}
+
+.bmpui-ui-replaybutton.bmpui-hidden {
+  opacity: 0;
+  -webkit-transition: opacity 0.3s;
+  transition: opacity 0.3s;
+}
+
+/* Replay button */
+
+#pause-playtoggle #pause-replay {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  padding: 0;
+  margin: 0;
+  z-index: 0;
+}
+
+/* Titlebar */
+
+.bmpui-ui-titlebar > .bmpui-container-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.bmpui-ui-volumetogglebutton.bmpui-muted {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20.64' height='21.299' viewBox='0 0 20.64 21.299' %3E%3Cg id='Component_19_20' data-name='Component 19 – 20' transform='translate(0.364 0.694)' %3E%3Cg id='Group_114' data-name='Group 114' transform='translate(0 3.911)'%3E%3Cg id='noun_no_sound_2656953' data-name='noun_no sound_2656953' transform='translate(0 0)' %3E%3Cg id='no_sound' data-name='no sound' transform='translate(0 0)'%3E%3Cpath id='Path_37' data-name='Path 37' d='M3.556,14.111H.711A.711.711,0,0,1,0,13.4V7.711A.711.711,0,0,1,.711,7H3.556a.711.711,0,0,1,.711.711V13.4A.711.711,0,0,1,3.556,14.111ZM1.422,12.689H2.844V8.422H1.422Z' transform='translate(0 -4.156)' fill='white' /%3E%3Cpath id='Path_38' data-name='Path 38' d='M9.3,15.8a1.785,1.785,0,0,1-1-.306L4.32,12.835a.711.711,0,0,1-.32-.59V6.556a.711.711,0,0,1,.32-.59l3.989-2.66A1.785,1.785,0,0,1,9.3,3a1.806,1.806,0,0,1,1.806,1.806v9.187A1.806,1.806,0,0,1,9.3,15.8ZM5.422,11.86,9.1,14.314a.391.391,0,0,0,.59-.32V4.806a.391.391,0,0,0-.59-.32L5.422,6.94Z' transform='translate(-1.156 -3)' fill='white' /%3E%3C/g%3E%3C/g%3E%3Cg id='Group_113' data-name='Group 113' transform='translate(19.609 0) rotate(90)' %3E%3Cpath id='Path_41' data-name='Path 41' d='M.816,2.492a10.856,10.856,0,0,1,5.6-1.439,10.856,10.856,0,0,1,5.6,1.439.511.511,0,0,0,.273.077.525.525,0,0,0,.427-.266.532.532,0,0,0-.172-.725A11.945,11.945,0,0,0,6.42,0,11.942,11.942,0,0,0,.256,1.578a.536.536,0,0,0,.56.914Z' transform='translate(0 0)' fill='white' /%3E%3Cpath id='Path_42' data-name='Path 42' d='M9.155,1.865a.522.522,0,0,0-.172-.721A8.454,8.454,0,0,0,4.623,0,8.45,8.45,0,0,0,.246,1.126a.524.524,0,0,0,.55.893,7.4,7.4,0,0,1,3.828-.967,7.407,7.407,0,0,1,3.821.967A.525.525,0,0,0,9.155,1.865Z' transform='translate(1.796 2.729)' fill='white' /%3E%3Cpath id='Path_43' data-name='Path 43' d='M2.922,0A5.137,5.137,0,0,0,.247.7a.529.529,0,0,0-.168.725.518.518,0,0,0,.445.249A.539.539,0,0,0,.8,1.594a4.448,4.448,0,0,1,4.22-.014.524.524,0,0,0,.55-.893A5.12,5.12,0,0,0,2.922,0Z' transform='translate(3.497 5.395)' fill='white' /%3E%3C/g%3E%3C/g%3E%3Cline id='Line_421' data-name='Line 421' x1='19.2' y2='19.911' transform='translate(0.356)' fill='none' stroke='white' strokeWidth='2' /%3E%3C/g%3E%3C/svg%3E");
+}
+
+.bmpui-ui-volumetogglebutton.bmpui-unmuted[data-bmpui-volume-level-tens='10'] {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20.64' height='21.299' viewBox='0 0 20.64 21.299' %3E%3Cg id='Component_19_20' data-name='Component 19 – 20' transform='translate(0.364 0.694)' %3E%3Cg id='Group_114' data-name='Group 114' transform='translate(0 3.911)'%3E%3Cg id='noun_no_sound_2656953' data-name='noun_no sound_2656953' transform='translate(0 0)' %3E%3Cg id='no_sound' data-name='no sound' transform='translate(0 0)'%3E%3Cpath id='Path_37' data-name='Path 37' d='M3.556,14.111H.711A.711.711,0,0,1,0,13.4V7.711A.711.711,0,0,1,.711,7H3.556a.711.711,0,0,1,.711.711V13.4A.711.711,0,0,1,3.556,14.111ZM1.422,12.689H2.844V8.422H1.422Z' transform='translate(0 -4.156)' fill='%23555' /%3E%3Cpath id='Path_38' data-name='Path 38' d='M9.3,15.8a1.785,1.785,0,0,1-1-.306L4.32,12.835a.711.711,0,0,1-.32-.59V6.556a.711.711,0,0,1,.32-.59l3.989-2.66A1.785,1.785,0,0,1,9.3,3a1.806,1.806,0,0,1,1.806,1.806v9.187A1.806,1.806,0,0,1,9.3,15.8ZM5.422,11.86,9.1,14.314a.391.391,0,0,0,.59-.32V4.806a.391.391,0,0,0-.59-.32L5.422,6.94Z' transform='translate(-1.156 -3)' fill='%23555' /%3E%3C/g%3E%3C/g%3E%3Cg id='Group_113' data-name='Group 113' transform='translate(19.609 0) rotate(90)' %3E%3Cpath id='Path_41' data-name='Path 41' d='M.816,2.492a10.856,10.856,0,0,1,5.6-1.439,10.856,10.856,0,0,1,5.6,1.439.511.511,0,0,0,.273.077.525.525,0,0,0,.427-.266.532.532,0,0,0-.172-.725A11.945,11.945,0,0,0,6.42,0,11.942,11.942,0,0,0,.256,1.578a.536.536,0,0,0,.56.914Z' transform='translate(0 0)' fill='%23555' /%3E%3Cpath id='Path_42' data-name='Path 42' d='M9.155,1.865a.522.522,0,0,0-.172-.721A8.454,8.454,0,0,0,4.623,0,8.45,8.45,0,0,0,.246,1.126a.524.524,0,0,0,.55.893,7.4,7.4,0,0,1,3.828-.967,7.407,7.407,0,0,1,3.821.967A.525.525,0,0,0,9.155,1.865Z' transform='translate(1.796 2.729)' fill='%23555' /%3E%3Cpath id='Path_43' data-name='Path 43' d='M2.922,0A5.137,5.137,0,0,0,.247.7a.529.529,0,0,0-.168.725.518.518,0,0,0,.445.249A.539.539,0,0,0,.8,1.594a4.448,4.448,0,0,1,4.22-.014.524.524,0,0,0,.55-.893A5.12,5.12,0,0,0,2.922,0Z' transform='translate(3.497 5.395)' fill='%23555' /%3E%3C/g%3E%3C/g%3E%3Cline id='Line_421' data-name='Line 421' x1='19.2' y2='19.911' transform='translate(0.356)' fill='none' stroke='%23555' strokeWidth='2' /%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* buttons container */
+
+#pause-navigation {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: 100;
+  margin: 0 auto;
+  max-width: 80%;
+  padding: 0 0 16px;
+  position: absolute;
+  background: transparent;
+}
+
+#pause-navigation .bmpui-container-wrapper {
+  padding: 0;
+  height: auto;
+  position: relative;
+}
+
+#pause-player-controls .bmpui-container-wrapper {
+  gap: 5px;
+  display: flex;
+  margin-top: 10px;
+  align-items: center;
+}
+
+@media screen and (max-width: 720px) {
+  #pause-navigation {
+    padding-bottom: 0;
+  }
+
+  #container-volume {
+    margin-left: auto;
+  }
+}
+
+@media screen and (max-width: 920px) {
+  .bmpui-fullscreen #pause-navigation {
+    padding-bottom: 10px;
+  }
+
+  #pause-player-controls .bmpui-container-wrapper {
+    margin-top: 0;
+  }
+
+  #pause-playtoggle #pause-playbacktoggle-button {
+    background-size: 50px;
+  }
+}
+
+#pause-play-toggle-button.bmpui-off {
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="28.507" height="34.838" viewBox="0 0 28.507 34.838"><path id="Path_2573" data-name="Path 2573" d="M47.907,33.334V3.11a1.282,1.282,0,0,1,1.965-1.084L73.816,17.139a1.281,1.281,0,0,1,0,2.167L49.872,34.417a1.281,1.281,0,0,1-1.965-1.083Z" transform="translate(-46.907 -0.803)" fill="none" stroke="%23ff0" stroke-miterlimit="10" stroke-width="2" /></svg>');
+}
+
+#pause-play-toggle-button.bmpui-off:hover {
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="28.507" height="34.838" viewBox="0 0 28.507 34.838"><path id="Path_2573" data-name="Path 2573" d="M47.907,33.334V3.11a1.282,1.282,0,0,1,1.965-1.084L73.816,17.139a1.281,1.281,0,0,1,0,2.167L49.872,34.417a1.281,1.281,0,0,1-1.965-1.083Z" transform="translate(-46.907 -0.803)" fill="none" stroke="%23fff" stroke-miterlimit="10" stroke-width="2" /></svg>');
+}
+
+#pause-play-toggle-button.bmpui-on {
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="30.008" height="34" viewBox="0 0 30.008 34"><g id="Group_3296" data-name="Group 3296" transform="translate(1.008 1)"><path id="Path_2569" data-name="Path 2569" d="M16.506,33h8.532V1h-8.78Z" transform="translate(2.961 -1)" fill="none" stroke="%23ff0" stroke-miterlimit="10" stroke-width="2"/><path id="Path_2570" data-name="Path 2570" d="M1.255,33H9.788V1H1.008Z" transform="translate(-1.008 -1)" fill="none" stroke="%23ff0" stroke-miterlimit="10" stroke-width="2"/></g></svg>');
+}
+
+#pause-play-toggle-button.bmpui-on:hover {
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="30.008" height="34" viewBox="0 0 30.008 34"><g id="Group_3296" data-name="Group 3296" transform="translate(1.008 1)"><path id="Path_2569" data-name="Path 2569" d="M16.506,33h8.532V1h-8.78Z" transform="translate(2.961 -1)" fill="none" stroke="%23fff" stroke-miterlimit="10" stroke-width="2"/><path id="Path_2570" data-name="Path 2570" d="M1.255,33H9.788V1H1.008Z" transform="translate(-1.008 -1)" fill="none" stroke="%23fff" stroke-miterlimit="10" stroke-width="2"/></g></svg>');
+}
+
+#previous-frame {
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="15.048" height="28.285" viewBox="0 0 15.048 28.285"><path id="Path_2574" data-name="Path 2574" d="M101.952,30.064,89.625,18.187a1.335,1.335,0,0,1,0-1.7L101.952,4.607" transform="translate(-88.318 -3.193)" fill="none" stroke="%23ff0" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/></svg>');
+}
+
+#previous-frame:hover {
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="15.048" height="28.285" viewBox="0 0 15.048 28.285"><path id="Path_2574" data-name="Path 2574" d="M101.952,30.064,89.625,18.187a1.335,1.335,0,0,1,0-1.7L101.952,4.607" transform="translate(-88.318 -3.193)" fill="none" stroke="%23fff" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/></svg>');
+}
+
+#next-frame {
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="15.048" height="28.285" viewBox="0 0 15.048 28.285"><path id="Path_2575" data-name="Path 2575" d="M118.9,4.607l12.327,11.877a1.335,1.335,0,0,1,0,1.7L118.9,30.064" transform="translate(-117.483 -3.193)" fill="none" stroke="%23ff0" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/></svg>');
+}
+
+#next-frame:hover {
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="15.048" height="28.285" viewBox="0 0 15.048 28.285"><path id="Path_2575" data-name="Path 2575" d="M118.9,4.607l12.327,11.877a1.335,1.335,0,0,1,0,1.7L118.9,30.064" transform="translate(-117.483 -3.193)" fill="none" stroke="%23fff" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/></svg>');
+}
+
+#pause-volume-toggle-button {
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="27.818" height="28.542" viewBox="0 0 27.818 28.542"><g id="Component_19_77" data-name="Component 19 – 77" style="isolation: isolate"><path id="Union_2" data-name="Union 2" d="M-2397.052-2626.641a1,1,0,0,1-.024-1.413l5.817-6.024-1.58-1.054h-3.7a1,1,0,0,1-1-1v-8a1,1,0,0,1,1-1h3.7l5.356-3.569a2.508,2.508,0,0,1,1.4-.431,2.539,2.539,0,0,1,2.541,2.54v4.521l12.1-12.526a1,1,0,0,1,1.414-.025,1,1,0,0,1,.024,1.415l-8.785,9.1a.738.738,0,0,1,.252.242,7.214,7.214,0,0,1,.984,3.766,7.216,7.216,0,0,1-.964,3.728.74.74,0,0,1-.629.35.735.735,0,0,1-.385-.109.739.739,0,0,1-.333-.457.733.733,0,0,1,.092-.558,6.254,6.254,0,0,0-.016-5.926l-3.75,3.883v5.521a2.539,2.539,0,0,1-2.541,2.54,2.505,2.505,0,0,1-1.4-.428l-2.085-1.391-6.069,6.285a1,1,0,0,1-.719.305A1,1,0,0,1-2397.052-2626.641Zm10.678-6.58a.554.554,0,0,0,.544.011.551.551,0,0,0,.288-.461v-3.449l-2.615,2.708Zm0-13.82-5.169,3.45v6.919l1.7,1.132,4.305-4.458v-6.593a.554.554,0,0,0-.288-.461.55.55,0,0,0-.263-.066A.553.553,0,0,0-2386.374-2647.041Zm-9.169,9.912h2v-6h-2Zm22.336,5.891a.727.727,0,0,1-.374-.6.7.7,0,0,1,.107-.384,15.264,15.264,0,0,0,2.024-7.879,15.246,15.246,0,0,0-2.024-7.88.757.757,0,0,1-.111-.394.753.753,0,0,1,.36-.644.753.753,0,0,1,1.037.249,16.8,16.8,0,0,1,2.218,8.668,16.853,16.853,0,0,1-2.218,8.624.755.755,0,0,1-.635.348A.742.742,0,0,1-2373.207-2631.238Zm-3.222-2.492a.744.744,0,0,1-.326-.612.737.737,0,0,1,.11-.386,10.415,10.415,0,0,0,1.359-5.374,10.39,10.39,0,0,0-1.359-5.384.728.728,0,0,1-.108-.384.74.74,0,0,1,.535-.708.744.744,0,0,1,.83.319,11.912,11.912,0,0,1,1.582,6.158,11.915,11.915,0,0,1-1.608,6.128.739.739,0,0,1-.456.336.753.753,0,0,1-.168.019A.755.755,0,0,1-2376.428-2633.73Z" transform="translate(2397.543 2654.902)" fill="%23fff"/></g></svg>');
+  position: relative;
+}
+
+#pause-volume-toggle-button:hover {
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="27.818" height="28.542" viewBox="0 0 27.818 28.542"><g id="Component_19_77" data-name="Component 19 – 77" style="isolation: isolate"><path id="Union_2" data-name="Union 2" d="M-2397.052-2626.641a1,1,0,0,1-.024-1.413l5.817-6.024-1.58-1.054h-3.7a1,1,0,0,1-1-1v-8a1,1,0,0,1,1-1h3.7l5.356-3.569a2.508,2.508,0,0,1,1.4-.431,2.539,2.539,0,0,1,2.541,2.54v4.521l12.1-12.526a1,1,0,0,1,1.414-.025,1,1,0,0,1,.024,1.415l-8.785,9.1a.738.738,0,0,1,.252.242,7.214,7.214,0,0,1,.984,3.766,7.216,7.216,0,0,1-.964,3.728.74.74,0,0,1-.629.35.735.735,0,0,1-.385-.109.739.739,0,0,1-.333-.457.733.733,0,0,1,.092-.558,6.254,6.254,0,0,0-.016-5.926l-3.75,3.883v5.521a2.539,2.539,0,0,1-2.541,2.54,2.505,2.505,0,0,1-1.4-.428l-2.085-1.391-6.069,6.285a1,1,0,0,1-.719.305A1,1,0,0,1-2397.052-2626.641Zm10.678-6.58a.554.554,0,0,0,.544.011.551.551,0,0,0,.288-.461v-3.449l-2.615,2.708Zm0-13.82-5.169,3.45v6.919l1.7,1.132,4.305-4.458v-6.593a.554.554,0,0,0-.288-.461.55.55,0,0,0-.263-.066A.553.553,0,0,0-2386.374-2647.041Zm-9.169,9.912h2v-6h-2Zm22.336,5.891a.727.727,0,0,1-.374-.6.7.7,0,0,1,.107-.384,15.264,15.264,0,0,0,2.024-7.879,15.246,15.246,0,0,0-2.024-7.88.757.757,0,0,1-.111-.394.753.753,0,0,1,.36-.644.753.753,0,0,1,1.037.249,16.8,16.8,0,0,1,2.218,8.668,16.853,16.853,0,0,1-2.218,8.624.755.755,0,0,1-.635.348A.742.742,0,0,1-2373.207-2631.238Zm-3.222-2.492a.744.744,0,0,1-.326-.612.737.737,0,0,1,.11-.386,10.415,10.415,0,0,0,1.359-5.374,10.39,10.39,0,0,0-1.359-5.384.728.728,0,0,1-.108-.384.74.74,0,0,1,.535-.708.744.744,0,0,1,.83.319,11.912,11.912,0,0,1,1.582,6.158,11.915,11.915,0,0,1-1.608,6.128.739.739,0,0,1-.456.336.753.753,0,0,1-.168.019A.755.755,0,0,1-2376.428-2633.73Z" transform="translate(2397.543 2654.902)" fill="%23fff"/></g></svg>');
+}
+
+#pause-volume-toggle-button:hover:before {
+  background: black;
+  border-radius: 4px;
+  bottom: 42px;
+  color: #fff;
+  content: "Audio not available...";
+  display: block;
+  left: -72px;
+  padding: 10px 20px;
+  position: absolute;
+  text-shadow: 0 1px 0 #000;
+  white-space: nowrap;
+  z-index: 999;
+}
+
+#pause-fullscreen-toggle-button {
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="27.457" height="27.457" viewBox="0 0 27.457 27.457"><g id="Group_2910" data-name="Group 2910" transform="translate(1 1)"><path id="Path_2567" data-name="Path 2567" d="M290.533,4.607h-11.2a1.319,1.319,0,0,0-1.319,1.319V28.745a1.319,1.319,0,0,0,1.319,1.319h22.819a1.319,1.319,0,0,0,1.319-1.319v-11.2" transform="translate(-278.015 -4.607)" fill="none" stroke="%23ff0" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/><path id="Path_2568" data-name="Path 2568" d="M299.169,12.27V5.926a1.319,1.319,0,0,0-1.319-1.319h-6.344" transform="translate(-273.712 -4.607)" fill="none" stroke="%23ff0" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/><line id="Line_737" data-name="Line 737" x1="16.306" y2="16.306" transform="translate(8.54 0.751)" fill="none" stroke="%23ff0" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/></g></svg>');
+}
+
+#pause-fullscreen-toggle-button:hover {
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="27.457" height="27.457" viewBox="0 0 27.457 27.457"><g id="Group_2910" data-name="Group 2910" transform="translate(1 1)"><path id="Path_2567" data-name="Path 2567" d="M290.533,4.607h-11.2a1.319,1.319,0,0,0-1.319,1.319V28.745a1.319,1.319,0,0,0,1.319,1.319h22.819a1.319,1.319,0,0,0,1.319-1.319v-11.2" transform="translate(-278.015 -4.607)" fill="none" stroke="%23fff" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/><path id="Path_2568" data-name="Path 2568" d="M299.169,12.27V5.926a1.319,1.319,0,0,0-1.319-1.319h-6.344" transform="translate(-273.712 -4.607)" fill="none" stroke="%23fff" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/><line id="Line_737" data-name="Line 737" x1="16.306" y2="16.306" transform="translate(8.54 0.751)" fill="none" stroke="%23fff" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/></g></svg>');
+}
+
+#favourites,
+#next-frame,
+#previous-frame {
+  opacity: 1;
+  transition: opacity 0.25s ease-in-out;
+}
+
+#pause-volume-toggle-button {
+  opacity: 0.3;
+}
+
+#favourites {
+  color: #ff0;
+}
+
+#favourites:hover {
+  color: #fff;
+}
+
+#favourites svg {
+  width: 100%;
+  height: auto;
+}
+
+#pause-volume-toggle-button.bmpui-muted,
+.bmpui-player-state-playing #favourites,
+.bmpui-player-state-playing #next-frame,
+.bmpui-player-state-playing #previous-frame {
+  opacity: 0.3;
+}
+
+.bmpui-player-state-playing #favourites,
+.bmpui-player-state-playing #next-frame,
+.bmpui-player-state-playing #previous-frame {
+  pointer-events: none;
+}
+
+.bmpui-ui-hugeplaybacktogglebutton .bmpui-image:hover {
+  animation: none;
+}
+
+@media screen and (max-width: 768px) {
+  .bmpui-ui-playbacktoggle-overlay .bmpui-ui-hugeplaybacktogglebutton {
+    padding: 0 !important;
+  }
+
+  .bmpui-ui-hugeplaybacktogglebutton .bmpui-image {
+    background-size: 10% !important;
+  }
+}
+
+.bmpui-ui-airplaytogglebutton,
+.bmpui-ui-audiotracksettingstogglebutton,
+.bmpui-ui-button,
+.bmpui-ui-casttogglebutton,
+.bmpui-ui-clickoverlay,
+.bmpui-ui-closebutton,
+.bmpui-ui-fullscreentogglebutton,
+.bmpui-ui-hugeplaybacktogglebutton,
+.bmpui-ui-hugereplaybutton,
+.bmpui-ui-listbox .bmpui-ui-listbox-button,
+.bmpui-ui-piptogglebutton,
+.bmpui-ui-playbacktogglebutton,
+.bmpui-ui-replaybutton,
+.bmpui-ui-settingspanelpagebackbutton,
+.bmpui-ui-settingspanelpageopenbutton,
+.bmpui-ui-settingstogglebutton,
+.bmpui-ui-skin-ads .bmpui-ui-ads-status .bmpui-ui-button-ad-skip,
+.bmpui-ui-subtitlesettingsresetbutton,
+.bmpui-ui-subtitlesettingstogglebutton,
+.bmpui-ui-volumetogglebutton,
+.bmpui-ui-vrtogglebutton,
+.bmpui-ui-watermark {
+  width: 42px;
+  height: 42px;
+  padding: 5px;
+  border: none;
+  appearance: none;
+  box-sizing: border-box;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: transparent;
+}
+
+@media (max-width: 920px) {
+  .bmpui-ui-airplaytogglebutton,
+  .bmpui-ui-audiotracksettingstogglebutton,
+  .bmpui-ui-button,
+  .bmpui-ui-casttogglebutton,
+  .bmpui-ui-clickoverlay,
+  .bmpui-ui-closebutton,
+  .bmpui-ui-fullscreentogglebutton,
+  .bmpui-ui-hugeplaybacktogglebutton,
+  .bmpui-ui-hugereplaybutton,
+  .bmpui-ui-listbox .bmpui-ui-listbox-button,
+  .bmpui-ui-piptogglebutton,
+  .bmpui-ui-playbacktogglebutton,
+  .bmpui-ui-replaybutton,
+  .bmpui-ui-settingspanelpagebackbutton,
+  .bmpui-ui-settingspanelpageopenbutton,
+  .bmpui-ui-settingstogglebutton,
+  .bmpui-ui-skin-ads .bmpui-ui-ads-status .bmpui-ui-button-ad-skip,
+  .bmpui-ui-subtitlesettingsresetbutton,
+  .bmpui-ui-subtitlesettingstogglebutton,
+  .bmpui-ui-volumetogglebutton,
+  .bmpui-ui-vrtogglebutton,
+  .bmpui-ui-watermark {
+    width: 35px;
+    height: 35px;
+  }
+}
+
+@media (max-width: 480px) {
+  .bmpui-ui-airplaytogglebutton,
+  .bmpui-ui-audiotracksettingstogglebutton,
+  .bmpui-ui-button,
+  .bmpui-ui-casttogglebutton,
+  .bmpui-ui-clickoverlay,
+  .bmpui-ui-closebutton,
+  .bmpui-ui-fullscreentogglebutton,
+  .bmpui-ui-hugeplaybacktogglebutton,
+  .bmpui-ui-hugereplaybutton,
+  .bmpui-ui-listbox .bmpui-ui-listbox-button,
+  .bmpui-ui-piptogglebutton,
+  .bmpui-ui-playbacktogglebutton,
+  .bmpui-ui-replaybutton,
+  .bmpui-ui-settingspanelpagebackbutton,
+  .bmpui-ui-settingspanelpageopenbutton,
+  .bmpui-ui-settingstogglebutton,
+  .bmpui-ui-skin-ads .bmpui-ui-ads-status .bmpui-ui-button-ad-skip,
+  .bmpui-ui-subtitlesettingsresetbutton,
+  .bmpui-ui-subtitlesettingstogglebutton,
+  .bmpui-ui-volumetogglebutton,
+  .bmpui-ui-vrtogglebutton,
+  .bmpui-ui-watermark {
+    width: 28px;
+    height: 28px;
+  }
+}
